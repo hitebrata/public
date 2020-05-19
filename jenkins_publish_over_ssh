@@ -1,0 +1,15 @@
+The path to key should be the path to the private key id_rsa.
+
+Not the public one id_rsa.pub (which is indeed an invalid... private key)
+
+Creating an SSH key pair has generated:
+
+/var/lib/jenkins/.ssh/id_rsa (private key)
+/var/lib/jenkins/.ssh/id_rsa.pub (public key)
+Use the old PEM format (not the new OpenSSH one)
+
+ssh-keygen -t rsa -C "jenkins" -m PEM -P "" -f /var/lib/jenkins/.ssh/id_rsa
+For an SSH session to be opened, the public key need to be copied over to the remote server, in /home/ubuntu/.ssh/authorized_keys.
+If you have the remote ubuntu user password, you can use the ssh-copy-id command, as seen here:
+
+ssh-copy-id -i /var/lib/jenkins/.ssh/id_rsa ubuntu@remoteserverip
